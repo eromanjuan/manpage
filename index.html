@@ -69,6 +69,19 @@
         }
         nav a:hover { opacity: 1; color: var(--accent); }
 
+        /* Burger Menu (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+        }
+
         /* --- Hero Section --- */
         #home {
             height: 100vh;
@@ -78,6 +91,7 @@
             background: linear-gradient(rgba(26, 10, 46, 0.4), rgba(5, 5, 5, 0.9)), url('hero.jpg') center/cover no-repeat;
             text-align: center;
             border-bottom: 1px solid #1a1a1a;
+            padding: 0 20px;
         }
 
         .hero-content h1 {
@@ -187,7 +201,7 @@
             aspect-ratio: 2/3;
             background: #111;
             border: 1px solid rgba(157, 80, 187, 0.1);
-            cursor: pointer; /* Change cursor to indicate clickability */
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -212,14 +226,7 @@
 
         .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-        .gallery-overlay span {
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            border-bottom: 1px solid var(--soft-purple);
-            padding-bottom: 5px;
-        }
-
-        /* --- LIGHTBOX (FULL IMAGE VIEW) --- */
+        /* --- LIGHTBOX --- */
         .lightbox {
             position: fixed;
             top: 0;
@@ -228,23 +235,19 @@
             height: 100%;
             background: rgba(5, 5, 5, 0.95);
             backdrop-filter: blur(8px);
-            display: none; /* Hidden by default */
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 3000;
-            cursor: zoom-out;
         }
 
-        .lightbox.active {
-            display: flex;
-        }
+        .lightbox.active { display: flex; }
 
         .lightbox img {
             max-width: 90%;
             max-height: 85vh;
             border: 2px solid var(--accent);
             box-shadow: 0 0 50px rgba(188, 19, 254, 0.3);
-            cursor: default;
         }
 
         .close-lightbox {
@@ -254,62 +257,52 @@
             color: white;
             font-size: 2.5rem;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-lightbox:hover {
-            color: var(--accent);
         }
 
         /* --- Contact --- */
-        #contact {
-            padding: 100px 10%;
-            text-align: center;
-            background: var(--black);
-        }
-
+        #contact { padding: 100px 10%; text-align: center; background: var(--black); }
         .contact-info a {
             font-family: 'Bodoni Moda', serif;
             font-size: clamp(1.5rem, 5vw, 2.5rem);
             color: white;
             text-decoration: none;
-            transition: 0.3s;
         }
+        .socials { margin-top: 50px; display: flex; justify-content: center; gap: 30px; }
+        .socials a { color: var(--text-gray); font-size: 1.5rem; transition: 0.3s; }
+        footer { padding: 50px; text-align: center; font-size: 0.6rem; letter-spacing: 3px; color: #444; border-top: 1px solid #111; }
 
-        .contact-info a:hover { color: var(--accent); }
-
-        .socials {
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .socials a {
-            color: var(--text-gray);
-            font-size: 1.5rem;
-            transition: 0.3s;
-        }
-
-        .socials a:hover { color: var(--accent); transform: translateY(-5px); }
-
-        footer {
-            padding: 50px;
-            text-align: center;
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            color: #444;
-            border-top: 1px solid #111;
-        }
-
+        /* --- PORTRAIT / MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; }
-            nav ul { display: none; }
+            nav { padding: 1rem 5%; }
+            .menu-toggle { display: flex; }
+            
+            nav ul {
+                display: none; /* Hide default menu */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 5, 5, 0.95);
+                padding: 20px 0;
+                text-align: center;
+                border-bottom: 1px solid var(--accent);
+            }
+
+            nav ul.active { display: flex; }
+            nav ul li { margin: 15px 0; }
+            
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-text h2 { font-size: 2.2rem; }
+            .hero-content p { letter-spacing: 4px; font-size: 0.75rem; }
             .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .section-title { font-size: 1.8rem; margin-bottom: 40px; }
         }
 
         @media (max-width: 480px) {
             .gallery { grid-template-columns: 1fr; }
+            .logo { font-size: 1.2rem; }
+            .cta-btn { padding: 12px 30px; }
         }
     </style>
 </head>
@@ -317,7 +310,12 @@
 
     <nav>
         <div class="logo">Julie Mae</div>
-        <ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="nav-list">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#portfolio">Gallery</a></li>
@@ -339,9 +337,8 @@
                 <img src="portrait.png" alt="Julie Mae Portrait">
             </div>
             <div class="about-text">
-                <h2>The Artist</h2>
+                <h2>About</h2>
                 <p>Based in the Philippines, Julie Mae is a professional model known for her high-fashion versatility and editorial presence. With a foundation in Computer Science, she brings technical precision and creative soul to every production.</p>
-                
                 <div class="stats-table">
                     <div class="stat-item"><span>Height</span> <span>5'7" / 170cm</span></div>
                     <div class="stat-item"><span>Bust</span> <span>32"</span></div>
@@ -357,38 +354,14 @@
     <section id="portfolio">
         <h2 class="section-title">Gallery</h2>
         <div class="gallery">
-            <div class="gallery-item">
-                <img src="img1.png" alt="Editorial 01">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img2.png" alt="Commercial 02">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img3.png" alt="Fashion 03">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img4.png" alt="Editorial 04">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img5.png" alt="Runway 05">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img6.jpg" alt="National 06">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img7.png" alt="High Fashion 07">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img8.png" alt="Beauty 08">
-                <div class="gallery-overlay"><span>VIEW FULL</span></div>
-            </div>
+            <div class="gallery-item"><img src="img1.png" alt="Editorial 01"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img2.png" alt="Commercial 02"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img3.png" alt="Fashion 03"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img4.png" alt="Editorial 04"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img5.png" alt="Runway 05"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img6.jpg" alt="National 06"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img7.png" alt="High Fashion 07"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
+            <div class="gallery-item"><img src="img8.png" alt="Beauty 08"><div class="gallery-overlay"><span>VIEW FULL</span></div></div>
         </div>
     </section>
 
@@ -400,10 +373,9 @@
     <section id="contact">
         <h2 class="section-title">Contact</h2>
         <div class="contact-info">
-            <p style="letter-spacing: 3px; margin-bottom: 20px; font-size: 0.8rem; color: var(--accent);">EMAIL</p>
+            <p style="letter-spacing: 3px; margin-bottom: 20px; font-size: 0.8rem; color: var(--accent);">FOR BOOKINGS</p>
             <a href="mailto:juliemaeincierto@gmail.com">juliemaeincierto@gmail.com</a>
         </div>
-        
         <div class="socials">
             <a href="https://www.facebook.com/julie.mae.incierto" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/itsme_julieyyy/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -416,28 +388,30 @@
     </footer>
 
     <script>
+        // Menu Toggle Logic
+        function toggleMenu() {
+            document.getElementById('nav-list').classList.toggle('active');
+        }
+
         const galleryItems = document.querySelectorAll('.gallery-item');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.getElementById('close-lightbox');
 
-        // Open Lightbox
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
                 const img = item.querySelector('img');
-                lightboxImg.src = img.src; // Set lightbox image to the one clicked
+                lightboxImg.src = img.src;
                 lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Stop scrolling behind lightbox
+                document.body.style.overflow = 'hidden';
             });
         });
 
-        // Close Lightbox (Clicking X)
         closeBtn.addEventListener('click', () => {
             lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         });
 
-        // Close Lightbox (Clicking outside the image)
         lightbox.addEventListener('click', (e) => {
             if (e.target !== lightboxImg) {
                 lightbox.classList.remove('active');
@@ -445,8 +419,5 @@
             }
         });
     </script>
-
 </body>
 </html>
-
-
