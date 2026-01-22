@@ -8,12 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --black: #050505;
-            --deep-purple: #1a0a2e;
-            --electric-purple: #9d50bb;
-            --soft-purple: #d8b4fe;
-            --text-gray: #a1a1a1;
-            --accent: #bc13fe;
+            /* Light Purple Theme Palette */
+            --bg-main: #fcfaff;         /* Near white with purple tint */
+            --bg-soft: #f3e8ff;         /* Very light lavender */
+            --deep-purple: #4c1d95;     /* Dark violet for headings */
+            --accent-purple: #a855f7;   /* Vibrant purple for buttons/links */
+            --soft-purple: #d8b4fe;     /* Light borders and accents */
+            --text-main: #1e1b4b;       /* Deep indigo for readability */
+            --text-muted: #6b7280;      /* Gray for secondary text */
+            --white: #ffffff;
         }
 
         * {
@@ -25,8 +28,8 @@
         }
 
         body {
-            background-color: var(--black);
-            color: white;
+            background-color: var(--bg-main);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -41,10 +44,10 @@
             top: 0;
             width: 100%;
             z-index: 2000;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(188, 19, 254, 0.1);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--soft-purple);
             transition: 0.3s ease;
         }
 
@@ -54,22 +57,22 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             font-weight: 700;
+            color: var(--deep-purple);
         }
 
         nav ul { display: flex; list-style: none; }
         nav ul li { margin-left: 30px; }
         nav a {
-            color: white;
+            color: var(--text-main);
             text-decoration: none;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.3s;
-            opacity: 0.8;
+            font-weight: 600;
         }
-        nav a:hover { opacity: 1; color: var(--accent); }
+        nav a:hover { color: var(--accent-purple); }
 
-        /* Burger Menu (Hidden on Desktop) */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -79,7 +82,7 @@
         .menu-toggle span {
             width: 25px;
             height: 2px;
-            background: white;
+            background: var(--deep-purple);
         }
 
         /* --- Hero Section --- */
@@ -88,9 +91,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(26, 10, 46, 0.4), rgba(5, 5, 5, 0.9)), url('hero.jpg') center/cover no-repeat;
+            /* Light gradient overlay */
+            background: linear-gradient(rgba(243, 232, 255, 0.5), rgba(252, 250, 255, 0.8)), url('hero.jpg') center/cover no-repeat;
             text-align: center;
-            border-bottom: 1px solid #1a1a1a;
             padding: 0 20px;
         }
 
@@ -100,7 +103,7 @@
             line-height: 1;
             margin-bottom: 1rem;
             text-transform: uppercase;
-            background: linear-gradient(to right, #fff, var(--soft-purple));
+            background: linear-gradient(to right, var(--deep-purple), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -108,33 +111,35 @@
         .hero-content p {
             letter-spacing: 8px;
             text-transform: uppercase;
-            font-weight: 200;
+            font-weight: 400;
             font-size: 0.9rem;
-            color: var(--text-gray);
+            color: var(--text-muted);
         }
 
         .cta-btn {
             margin-top: 40px;
             display: inline-block;
             padding: 15px 45px;
-            border: 1px solid var(--accent);
-            color: white;
+            border: 2px solid var(--accent-purple);
+            color: var(--accent-purple);
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.75rem;
-            transition: 0.5s;
+            font-weight: 600;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cta-btn:hover {
-            background: var(--accent);
-            box-shadow: 0 0 30px rgba(188, 19, 254, 0.4);
+            background: var(--accent-purple);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
         }
 
         /* --- About Section --- */
         #about {
             padding: 140px 10% 100px 10%;
-            background: linear-gradient(to bottom, var(--black), var(--deep-purple));
+            background: linear-gradient(to bottom, var(--bg-main), var(--bg-soft));
         }
 
         .about-grid {
@@ -146,26 +151,27 @@
 
         .about-img-frame {
             position: relative;
-            border: 1px solid var(--deep-purple);
+            border: 1px solid var(--soft-purple);
             padding: 15px;
+            background: var(--white);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
         }
 
         .about-img-frame img {
             width: 100%;
             display: block;
-            filter: grayscale(20%);
         }
 
         .about-text h2 {
             font-family: 'Bodoni Moda', serif;
             font-size: 3rem;
             margin-bottom: 20px;
-            color: var(--soft-purple);
+            color: var(--deep-purple);
         }
 
         .stats-table {
             margin-top: 30px;
-            border-top: 1px solid #333;
+            border-top: 1px solid var(--soft-purple);
             padding-top: 20px;
         }
 
@@ -176,10 +182,15 @@
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 1px;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         /* --- Portfolio Gallery --- */
-        #portfolio { padding: 100px 5%; }
+        #portfolio { 
+            padding: 100px 5%; 
+            background: var(--bg-main);
+        }
         
         .section-title {
             text-align: center;
@@ -187,6 +198,7 @@
             font-size: 2.5rem;
             margin-bottom: 60px;
             letter-spacing: 5px;
+            color: var(--deep-purple);
         }
 
         .gallery {
@@ -199,8 +211,8 @@
             position: relative;
             overflow: hidden;
             aspect-ratio: 2/3;
-            background: #111;
-            border: 1px solid rgba(157, 80, 187, 0.1);
+            background: var(--bg-soft);
+            border: 1px solid var(--soft-purple);
             cursor: pointer;
         }
 
@@ -208,20 +220,28 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67) transform;
+            transition: 0.8s ease;
         }
 
-        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover img { transform: scale(1.05); }
 
         .gallery-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(26, 10, 46, 0.7);
+            background: rgba(76, 29, 149, 0.7); /* Deep purple overlay */
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: 0.4s;
+        }
+        
+        .gallery-overlay span {
+            color: white;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
+            border: 1px solid white;
+            padding: 8px 15px;
         }
 
         .gallery-item:hover .gallery-overlay { opacity: 1; }
@@ -233,8 +253,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 5, 0.95);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -246,47 +266,66 @@
         .lightbox img {
             max-width: 90%;
             max-height: 85vh;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 50px rgba(188, 19, 254, 0.3);
+            border: 5px solid var(--white);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
         .close-lightbox {
             position: absolute;
             top: 30px;
             right: 40px;
-            color: white;
+            color: var(--deep-purple);
             font-size: 2.5rem;
             cursor: pointer;
         }
 
         /* --- Contact --- */
-        #contact { padding: 100px 10%; text-align: center; background: var(--black); }
+        #contact { 
+            padding: 100px 10%; 
+            text-align: center; 
+            background: var(--bg-soft); 
+        }
+        
         .contact-info a {
             font-family: 'Bodoni Moda', serif;
             font-size: clamp(1.5rem, 5vw, 2.5rem);
-            color: white;
+            color: var(--deep-purple);
             text-decoration: none;
+            transition: 0.3s;
         }
-        .socials { margin-top: 50px; display: flex; justify-content: center; gap: 30px; }
-        .socials a { color: var(--text-gray); font-size: 1.5rem; transition: 0.3s; }
-        footer { padding: 50px; text-align: center; font-size: 0.6rem; letter-spacing: 3px; color: #444; border-top: 1px solid #111; }
+        
+        .contact-info a:hover { color: var(--accent-purple); }
 
-        /* --- PORTRAIT / MOBILE ADJUSTMENTS --- */
+        .socials { margin-top: 50px; display: flex; justify-content: center; gap: 30px; }
+        .socials a { color: var(--text-muted); font-size: 1.5rem; transition: 0.3s; }
+        .socials a:hover { color: var(--accent-purple); transform: translateY(-3px); }
+
+        footer { 
+            padding: 50px; 
+            text-align: center; 
+            font-size: 0.6rem; 
+            letter-spacing: 3px; 
+            color: var(--text-muted); 
+            border-top: 1px solid var(--soft-purple); 
+            background: var(--bg-main);
+        }
+
+        /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             nav { padding: 1rem 5%; }
             .menu-toggle { display: flex; }
             
             nav ul {
-                display: none; /* Hide default menu */
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: rgba(5, 5, 5, 0.95);
+                background: var(--white);
                 padding: 20px 0;
                 text-align: center;
-                border-bottom: 1px solid var(--accent);
+                border-bottom: 2px solid var(--accent-purple);
             }
 
             nav ul.active { display: flex; }
@@ -294,15 +333,7 @@
             
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .about-text h2 { font-size: 2.2rem; }
-            .hero-content p { letter-spacing: 4px; font-size: 0.75rem; }
             .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .section-title { font-size: 1.8rem; margin-bottom: 40px; }
-        }
-
-        @media (max-width: 480px) {
-            .gallery { grid-template-columns: 1fr; }
-            .logo { font-size: 1.2rem; }
-            .cta-btn { padding: 12px 30px; }
         }
     </style>
 </head>
@@ -340,7 +371,7 @@
                 <h2>About</h2>
                 <p>Based in the Philippines, Julie Mae is a professional model known for her high-fashion versatility and editorial presence. With a foundation in Computer Science, she brings technical precision and creative soul to every production.</p>
                 <div class="stats-table">
-                    <div class="stat-item"><span>Height</span> <span>5'7" / 170cm</span></div>
+                    <div class="stat-item"><span>Height</span> <span>5'6" / 170cm</span></div>
                     <div class="stat-item"><span>Bust</span> <span>32"</span></div>
                     <div class="stat-item"><span>Waist</span> <span>24"</span></div>
                     <div class="stat-item"><span>Hips</span> <span>34"</span></div>
@@ -373,7 +404,7 @@
     <section id="contact">
         <h2 class="section-title">Contact</h2>
         <div class="contact-info">
-            <p style="letter-spacing: 3px; margin-bottom: 20px; font-size: 0.8rem; color: var(--accent);">FOR BOOKINGS</p>
+            <p style="letter-spacing: 3px; margin-bottom: 20px; font-size: 0.8rem; color: var(--accent-purple); font-weight: 600;"></p>
             <a href="mailto:juliemaeincierto@gmail.com">juliemaeincierto@gmail.com</a>
         </div>
         <div class="socials">
